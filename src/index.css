@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  /* Lvrpiz Palette */
+  --color-0: #8CA2FC;
+  --color-5: #6582F6;
+  --color-25: #5978F5;
+  --color-50: #2C4399;
+  --color-90: #101C48;
+  --color-100: #0C0F19;
+
+  --bg-depth: var(--color-100);
+  --bg-surface: rgba(16, 28, 72, 0.4); /* Based on #101C48 */
+  --bg-surface-hover: rgba(44, 67, 153, 0.3); /* Based on #2C4399 */
+  
+  --primary: var(--color-25);
+  --primary-glow: rgba(89, 120, 245, 0.4);
+  --secondary: var(--color-0);
+  --secondary-glow: rgba(140, 162, 252, 0.3);
+  
+  --accent-success: #10b981;
+  --accent-error: #ef4444;
+  --accent-warning: #f59e0b;
+
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-dim: #6b7280;
+
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-depth);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-depth);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-50);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-25);
+}
+
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(140, 162, 252, 0.1);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-0) 0%, var(--color-25) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: 
+    linear-gradient(rgba(89, 120, 245, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(89, 120, 245, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+}
+
+/* Input & Button Styles */
+input, select, textarea {
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+button {
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+

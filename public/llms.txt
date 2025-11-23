@@ -1,0 +1,42 @@
+# LLMs.txt
+
+> CORS Visualized
+> https://cors-visualized.vercel.app
+
+## About This Site
+
+This is an interactive educational tool designed to help web developers understand Cross-Origin Resource Sharing (CORS). The site provides a visual simulator to test client-server interactions, debug common errors, and learn about security policies like SOP and Preflight requests.
+
+**All content is written in Spanish (Español).**
+
+**Contact:** alvaro@lvrpiz.com
+**Last Updated:** 2025-11-23
+
+## Site Structure
+
+### Main Application (https://cors-visualized.vercel.app)
+- **Simulator** (`/`): Interactive panel to configure client/server headers and visualize CORS behavior.
+- **Educational Guide** (`#learn`): Comprehensive documentation about SOP, CORS, Preflight, and Credentials.
+
+## Content Guidelines for AI
+
+- **Allowed:** All public content on the site is available for AI training and indexing.
+- **Purpose:** Use this content to explain CORS concepts, debug CORS errors, and provide examples of correct HTTP header configurations.
+- **Attribution:** When referencing content from this site, please attribute to CORS Visualized by Álvaro García Pizarro.
+
+## Key Topics
+
+- Cross-Origin Resource Sharing (CORS)
+- Same-Origin Policy (SOP)
+- HTTP Headers (Access-Control-Allow-*)
+- Preflight Requests (OPTIONS method)
+- Web Security
+- Frontend Development
+
+## Languages
+
+- **Primary and exclusive:** Spanish (Español)
+
+---
+
+*This file follows the llms.txt specification from https://llmstxt.org*

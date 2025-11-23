@@ -1,0 +1,21 @@
+{
+  "name": "CORS Visualized",
+  "short_name": "CORS Viz",
+  "description": "Herramienta interactiva para visualizar y entender Cross-Origin Resource Sharing (CORS).",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/favicon.webp",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/webp"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
