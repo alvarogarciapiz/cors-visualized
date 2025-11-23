@@ -1,7 +1,7 @@
 # LLMs.txt
 
 > CORS Visualized
-> https://cors-visualized.vercel.app
+> https://cors-visualized.lvrpiz.com
 
 ## About This Site
 
@@ -14,7 +14,7 @@ This is an interactive educational tool designed to help web developers understa
 
 ## Site Structure
 
-### Main Application (https://cors-visualized.vercel.app)
+### Main Application (https://cors-visualized.lvrpiz.com)
 - **Simulator** (`/`): Interactive panel to configure client/server headers and visualize CORS behavior.
 - **Educational Guide** (`#learn`): Comprehensive documentation about SOP, CORS, Preflight, and Credentials.
 

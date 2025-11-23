@@ -2,10 +2,20 @@
   "name": "CORS Visualized",
   "short_name": "CORS Viz",
   "description": "Herramienta interactiva para visualizar y entender Cross-Origin Resource Sharing (CORS).",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
+  "lang": "es",
+  "dir": "ltr",
+  "categories": [
+    "education",
+    "utilities",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "/favicon.webp",

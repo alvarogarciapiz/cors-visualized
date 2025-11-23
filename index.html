@@ -11,9 +11,9 @@
     <!-- Open Graph TAGS -->
     <meta property="og:title" content="CORS Visualized - Entiende y Simula CORS">
     <meta property="og:description" content="Aprende cómo funciona CORS con este simulador interactivo. Visualiza cabeceras, errores y soluciones.">
-    <meta property="og:url" content="https://cors-visualized.vercel.app">
+    <meta property="og:url" content="https://cors-visualized.lvrpiz.com">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://cors-visualized.vercel.app/og.webp">
+    <meta property="og:image" content="https://cors-visualized.lvrpiz.com/og.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Captura de CORS Visualized">
@@ -24,7 +24,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="CORS Visualized - Entiende y Simula CORS">
     <meta name="twitter:description" content="Aprende cómo funciona CORS con este simulador interactivo. Visualiza cabeceras, errores y soluciones.">
-    <meta name="twitter:image" content="https://cors-visualized.vercel.app/og.webp">
+    <meta name="twitter:image" content="https://cors-visualized.lvrpiz.com/og.webp">
     <meta name="twitter:image:alt" content="Captura de CORS Visualized">
     <meta name="twitter:site" content="@lvrpiz">
     <meta name="twitter:creator" content="@lvrpiz">
@@ -44,7 +44,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
     <!-- Others -->
-    <link rel="canonical" href="https://cors-visualized.vercel.app" />
+    <link rel="canonical" href="https://cors-visualized.lvrpiz.com" />
     <link rel="icon" type="image/webp" href="/favicon.webp" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
@@ -54,8 +54,8 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "CORS Visualized",
-      "url": "https://cors-visualized.vercel.app",
-      "image": "https://cors-visualized.vercel.app/og.webp",
+      "url": "https://cors-visualized.lvrpiz.com",
+      "image": "https://cors-visualized.lvrpiz.com/og.webp",
       "description": "Herramienta interactiva para visualizar y aprender sobre Cross-Origin Resource Sharing (CORS).",
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Any",
@@ -75,6 +75,41 @@
         "price": "0",
         "priceCurrency": "USD"
       }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "¿Qué es la Política del Mismo Origen (SOP)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "La Same-Origin Policy es una medida de seguridad crítica que impide que un script malicioso en una página web obtenga acceso a datos sensibles en otra página web a través del DOM, a menos que ambas compartan el mismo origen."
+        }
+      }, {
+        "@type": "Question",
+        "name": "¿Qué es CORS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Cross-Origin Resource Sharing (CORS) es un estándar W3C que permite a un servidor relajar la política SOP. Utiliza cabeceras HTTP para indicar a los navegadores que permitan a una aplicación web acceder a recursos de un origen distinto."
+        }
+      }, {
+        "@type": "Question",
+        "name": "¿Qué son las Solicitudes Preflight (OPTIONS)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para solicitudes 'no simples' (como aquellas con Content-Type: application/json), el navegador envía automáticamente una solicitud OPTIONS antes de la solicitud real para verificar si el servidor permite la operación."
+        }
+      }, {
+        "@type": "Question",
+        "name": "¿Cómo manejar Credenciales y Cookies en CORS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Para enviar cookies entre dominios, el cliente debe establecer 'withCredentials' a true, y el servidor debe responder con 'Access-Control-Allow-Credentials: true' y un origen explícito."
+        }
+      }]
     }
     </script>
     <title>CORS Visualized - Entiende y Simula CORS Interactivamente</title>

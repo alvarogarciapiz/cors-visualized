@@ -197,10 +197,13 @@ const SimulationPanel = () => {
 						</div>
 
 						<div className="flex items-center gap-3 pt-2">
-							<label className="text-sm font-medium text-gray-400">
+							<label className="text-sm font-medium text-gray-400" id="client-credentials-label">
 								Incluir Credenciales (cookies/auth)
 							</label>
 							<button
+								role="switch"
+								aria-checked={clientConfig.credentials}
+								aria-labelledby="client-credentials-label"
 								onClick={() =>
 									setClientConfig((prev) => ({
 										...prev,
@@ -277,10 +280,13 @@ const SimulationPanel = () => {
 						</div>
 
 						<div className="flex items-center justify-end gap-3 pt-2">
-							<label className="text-sm font-medium text-gray-400">
+							<label className="text-sm font-medium text-gray-400" id="server-credentials-label">
 								Permitir Credenciales
 							</label>
 							<button
+								role="switch"
+								aria-checked={serverConfig.allowCredentials}
+								aria-labelledby="server-credentials-label"
 								onClick={() =>
 									setServerConfig((prev) => ({
 										...prev,
