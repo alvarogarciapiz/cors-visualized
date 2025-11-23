@@ -5,11 +5,11 @@
 [![Vite](https://img.shields.io/badge/Vite-5-purple?logo=vite)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-cyan?logo=tailwindcss)](https://tailwindcss.com/)
 
-> **Master Cross-Origin Resource Sharing once and for all.**
+> **Domina el Intercambio de Recursos de Origen Cruzado de una vez por todas.**
 >
-> 🚀 **Live Demo:** [https://cors-visualized.lvrpiz.com](https://cors-visualized.lvrpiz.com)
+> 🚀 **Demo en vivo:** [https://cors-visualized.lvrpiz.com](https://cors-visualized.lvrpiz.com)
 
-**CORS Visualized** is the ultimate interactive educational tool for developers, students, and security enthusiasts. Stop guessing why your requests are failing and start visualizing the invisible handshake between your browser and the server.
+**CORS Visualized** es la herramienta educativa interactiva definitiva para desarrolladores, estudiantes y entusiastas de la seguridad. Deja de adivinar por qué fallan tus peticiones y empieza a visualizar el saludo invisible entre tu navegador y el servidor.
 
 ---
 
@@ -19,82 +19,82 @@
 
 ---
 
-## 🧐 What is CORS?
+## 🧐 ¿Qué es CORS?
 
-**Cross-Origin Resource Sharing (CORS)** is a browser security mechanism that restricts cross-origin HTTP requests. It's the reason why your frontend at `localhost:3000` can't just talk to your backend at `api.example.com` without permission.
+**CORS (Cross-Origin Resource Sharing)** es un mecanismo de seguridad del navegador que restringe las peticiones HTTP de origen cruzado. Es la razón por la que tu frontend en `localhost:3000` no puede hablar simplemente con tu backend en `api.ejemplo.com` sin permiso explícito.
 
-This tool turns abstract headers and dry documentation into a **visual, interactive playground**.
+Esta herramienta convierte cabeceras abstractas y documentación árida en un **patio de recreo visual e interactivo**.
 
-## ✨ Key Features
+## ✨ Características Principales
 
-### 🎮 Interactive Simulation
-Design your own Client vs. Server scenarios. Tweak `Origin`, `Methods`, `Headers`, and `Credentials` in real-time and watch the browser's decision logic unfold.
+### 🎮 Simulación Interactiva
+Diseña tus propios escenarios de Cliente vs Servidor. Ajusta el `Origen`, `Métodos`, `Cabeceras` y `Credenciales` en tiempo real y observa cómo se despliega la lógica de decisión del navegador.
 
-### 🏆 Challenge Mode (Gamified Learning)
-Put your skills to the test with **5 levels of increasing difficulty**:
-1.  **The Basic Block:** Fix simple Origin mismatches.
-2.  **Unknown Method:** Handle Preflight requests for DELETE/PUT.
-3.  **Cross-Credentials:** Master the complex rules of `Access-Control-Allow-Credentials`.
-4.  **Custom Headers:** Learn to whitelist API Keys (`X-Api-Key`).
-5.  **Expert Level:** Expose hidden headers (`Access-Control-Expose-Headers`) to the frontend.
+### 🏆 Modo Desafío (Aprendizaje Gamificado)
+Pon a prueba tus habilidades con **5 niveles de dificultad creciente**:
+1.  **El Bloqueo Básico:** Soluciona desajustes simples de origen.
+2.  **Método Desconocido:** Maneja peticiones Preflight para DELETE/PUT.
+3.  **Credenciales Cruzadas:** Domina las reglas complejas de `Access-Control-Allow-Credentials`.
+4.  **Cabeceras Personalizadas:** Aprende a permitir API Keys (`X-Api-Key`).
+5.  **Nivel Experto:** Expón cabeceras ocultas (`Access-Control-Expose-Headers`) al frontend.
 
-### 🛡️ Security Audit
-Get instant feedback on your configuration. The tool analyzes your setup for common vulnerabilities:
-*   Wildcard (`*`) usage with Credentials.
-*   Excessive exposure of sensitive headers.
-*   Insecure `Max-Age` caching configurations.
+### 🛡️ Auditoría de Seguridad
+Recibe feedback instantáneo sobre tu configuración. La herramienta analiza tu configuración en busca de vulnerabilidades comunes:
+*   Uso de comodín (`*`) con Credenciales.
+*   Exposición excesiva de cabeceras sensibles.
+*   Configuraciones de caché `Max-Age` inseguras.
 
-### 💻 Multi-Language Code Generator
-Don't just learn it—implement it. Generate production-ready CORS configurations for your stack:
+### 💻 Generador de Código Multi-Lenguaje
+No solo lo aprendas, impleméntalo. Genera configuraciones CORS listas para producción para tu stack tecnológico:
 *   **Node.js** (Express)
 *   **Python** (FastAPI)
 *   **Java** (Spring Boot)
 *   **Go** (Gin)
 *   **C#** (ASP.NET Core)
-*   **Infrastructure:** Nginx, Apache, AWS S3, Vercel, Next.js.
+*   **Infraestructura:** Nginx, Apache, AWS S3, Vercel, Next.js.
 
-## 🚀 Getting Started
+## 🚀 Empezando
 
-Clone the repository and run it locally to experiment without internet access.
+Clona el repositorio y ejecútalo localmente para experimentar sin necesidad de acceso a internet.
 
 ```bash
-# Clone the repo
+# Clona el repositorio
 git clone https://github.com/alvarogarciapiz/cors-visualized.git
 
-# Enter the directory
+# Entra en el directorio
 cd cors-visualized
 
-# Install dependencies
+# Instala las dependencias
 npm install
 
-# Start the development server
+# Inicia el servidor de desarrollo
 npm run dev
 ```
 
-## 🛠️ Tech Stack
+## 🛠️ Stack Tecnológico
 
-Built with love and modern web standards:
-*   **React 18** - UI Library
-*   **Vite** - Blazing fast build tool
-*   **Tailwind CSS** - Utility-first styling
-*   **Framer Motion** - Smooth animations
-*   **Lucide React** - Beautiful icons
+Construido con cariño y estándares web modernos:
+*   **React 18** (Librería de UI)
+*   **Vite** (Herramienta de construcción ultrarrápida)
+*   **Tailwind CSS** (Estilos utility-first)
+*   **Framer Motion** (Animaciones fluidas)
+*   **Lucide React** (Iconos hermosos)
 
-## 🤝 Contributing
+## 🤝 Contribuir
 
-Contributions are welcome! Whether it's a new challenge level, a translation, or a bug fix. Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+¡Las contribuciones son bienvenidas! Ya sea un nuevo nivel de desafío, una traducción o la corrección de un bug. Por favor lee [CONTRIBUTING.md](CONTRIBUTING.md) para más detalles.
 
-## 📄 License
+## 📄 Licencia
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Este proyecto está licenciado bajo la Licencia MIT. Consulta el fichero [LICENSE](LICENSE) para más detalles.
 
-## 🔗 Credits & Resources
+## 🔗 Créditos y Recursos
 
-*   Created by **[@lvrpiz](https://github.com/alvarogarciapiz)**.
-*   Based on an article from **[The Bulletin Newsletter](https://www.bulletin.lvrpiz.com)**.
-*   Check out my website: [lvrpiz.com](https://lvrpiz.com).
+*   Creado por **[@lvrpiz](https://github.com/alvarogarciapiz)**.
+*   Basado en un artículo de **[The Bulletin Newsletter](https://www.bulletin.lvrpiz.com)**.
+*   Echa un vistazo a mi web: [lvrpiz.com](https://lvrpiz.com).
 
 ---
 
-### 🔍 Keywords for Discovery
-CORS, Cross-Origin Resource Sharing, Web Security, Developer Tools, Educational, React, Interactive Simulation, CORS Policy, Frontend Development, Backend Configuration, Express, FastAPI, Spring Boot, Nginx, Apache, AWS S3, Vercel, Next.js, Web Development, HTTP Headers, Preflight Request, SOP, Same-Origin Policy.
+### 🔍 Palabras Clave para Descubrimiento
+CORS, Intercambio de Recursos de Origen Cruzado, Seguridad Web, Herramientas de Desarrollador, Educativo, React, Simulación Interactiva, Política CORS, Desarrollo Frontend, Configuración Backend, Express, FastAPI, Spring Boot, Nginx, Apache, AWS S3, Vercel, Next.js, Desarrollo Web, Cabeceras HTTP, Petición Preflight, SOP, Política de Mismo Origen.
