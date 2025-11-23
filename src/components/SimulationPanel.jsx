@@ -1,8 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, RefreshCw, Settings, Server, Globe, ChevronDown, ShieldCheck, AlertTriangle, Lock } from 'lucide-react';
+import { Play, RefreshCw, Settings, Server, Globe, ChevronDown, ShieldCheck, AlertTriangle, Lock, Share2, Info, Terminal, Trophy, BookOpen } from 'lucide-react';
 import { useCorsSimulation } from '../hooks/useCorsSimulation';
 import ResponseViewer from './ResponseViewer';
 import RequestVisualizer from './RequestVisualizer';
+import CodeGenerator from './CodeGenerator';
+import SecurityAudit from './SecurityAudit';
+import Challenges from './Challenges';
+import Glossary from './Glossary';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PRESET_GROUPS = [
@@ -13,13 +17,13 @@ const PRESET_GROUPS = [
         name: "Acceso Público (GET)",
         desc: "API abierta a todo el mundo (*)",
         client: { origin: 'https://mi-web.com', method: 'GET', headers: '', credentials: false },
-        server: { allowedOrigins: ['*'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: false }
+        server: { allowedOrigins: ['*'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: false, exposedHeaders: [], maxAge: 0 }
       },
       {
         name: "Bloqueo de Origen",
         desc: "El servidor no confía en este dominio",
         client: { origin: 'https://sitio-malicioso.com', method: 'GET', headers: '', credentials: false },
-        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: false }
+        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: false, exposedHeaders: [], maxAge: 0 }
       }
     ]
   },
@@ -30,19 +34,19 @@ const PRESET_GROUPS = [
         name: "POST con JSON",
         desc: "Dispara Preflight por Content-Type",
         client: { origin: 'https://mi-web.com', method: 'POST', headers: 'Content-Type: application/json', credentials: false },
-        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['POST', 'OPTIONS'], allowedHeaders: ['Content-Type'], allowCredentials: false }
+        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['POST', 'OPTIONS'], allowedHeaders: ['Content-Type'], allowCredentials: false, exposedHeaders: [], maxAge: 86400 }
       },
       {
         name: "Auth Token (JWT)",
         desc: "Header Authorization permitido",
         client: { origin: 'https://mi-web.com', method: 'GET', headers: 'Authorization: Bearer 123', credentials: false },
-        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['GET', 'OPTIONS'], allowedHeaders: ['Authorization'], allowCredentials: false }
+        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['GET', 'OPTIONS'], allowedHeaders: ['Authorization'], allowCredentials: false, exposedHeaders: [], maxAge: 0 }
       },
       {
         name: "Header Prohibido",
         desc: "Fallo: Header no listado en el servidor",
         client: { origin: 'https://mi-web.com', method: 'POST', headers: 'X-Secret-Key: 123', credentials: false },
-        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['POST', 'OPTIONS'], allowedHeaders: ['Content-Type'], allowCredentials: false }
+        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['POST', 'OPTIONS'], allowedHeaders: ['Content-Type'], allowCredentials: false, exposedHeaders: [], maxAge: 0 }
       }
     ]
   },
@@ -53,13 +57,13 @@ const PRESET_GROUPS = [
         name: "Cookies Seguras",
         desc: "Requiere origen explícito (no *)",
         client: { origin: 'https://mi-web.com', method: 'GET', headers: '', credentials: true },
-        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: true }
+        server: { allowedOrigins: ['https://mi-web.com'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: true, exposedHeaders: [], maxAge: 0 }
       },
       {
         name: "Configuración Inválida",
         desc: "Credenciales + Wildcard (*) = Error",
         client: { origin: 'https://mi-web.com', method: 'GET', headers: '', credentials: true },
-        server: { allowedOrigins: ['*'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: true }
+        server: { allowedOrigins: ['*'], allowedMethods: ['GET'], allowedHeaders: [], allowCredentials: true, exposedHeaders: [], maxAge: 0 }
       }
     ]
   }
@@ -70,6 +74,10 @@ const SimulationPanel = () => {
 	const [serverConfig, setServerConfig] = useState(PRESET_GROUPS[0].items[0].server);
 	const [showPresets, setShowPresets] = useState(false);
 	const [isSimulating, setIsSimulating] = useState(false);
+	const [showShareTooltip, setShowShareTooltip] = useState(false);
+	const [showCurlTooltip, setShowCurlTooltip] = useState(false);
+	const [showGlossary, setShowGlossary] = useState(false);
+	const [mode, setMode] = useState('simulation'); // 'simulation' | 'challenges'
 	const dropdownRef = useRef(null);
 
 	const { result, simulateRequest } = useCorsSimulation(clientConfig, serverConfig);
@@ -84,6 +92,51 @@ const SimulationPanel = () => {
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => document.removeEventListener('mousedown', handleClickOutside);
 	}, []);
+
+	// Load config from URL params on mount
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		const config = params.get('config');
+		if (config) {
+			try {
+				const decoded = JSON.parse(atob(config));
+				if (decoded.client && decoded.server) {
+					setClientConfig(decoded.client);
+					setServerConfig(decoded.server);
+				}
+			} catch (e) {
+				console.error("Error parsing config from URL", e);
+			}
+		}
+	}, []);
+
+	const handleShare = () => {
+		const config = btoa(JSON.stringify({ client: clientConfig, server: serverConfig }));
+		const url = `${window.location.origin}${window.location.pathname}?config=${config}`;
+		navigator.clipboard.writeText(url);
+		setShowShareTooltip(true);
+		setTimeout(() => setShowShareTooltip(false), 2000);
+	};
+
+	const generateCurl = () => {
+		const { origin, method, headers } = clientConfig;
+		let cmd = `curl -v -X ${method} "https://api.ejemplo.com/v1"`;
+		cmd += ` \\\n  -H "Origin: ${origin}"`;
+		
+		if (headers) {
+			headers.split('\n').forEach(h => {
+				if (h.trim()) cmd += ` \\\n  -H "${h.trim()}"`;
+			});
+		}
+		return cmd;
+	};
+
+	const handleCopyCurl = () => {
+		const curl = generateCurl();
+		navigator.clipboard.writeText(curl);
+		setShowCurlTooltip(true);
+		setTimeout(() => setShowCurlTooltip(false), 2000);
+	};
 
 	const handleSimulate = () => {
 		setIsSimulating(false);
@@ -124,6 +177,18 @@ const SimulationPanel = () => {
 		}));
 	};
 
+	const handleServerExposedHeadersChange = (e) => {
+		const val = e.target.value;
+		setServerConfig((prev) => ({
+			...prev,
+			exposedHeaders: val.split(',').map((s) => s.trim()).filter(s => s.length > 0),
+		}));
+	};
+
+	if (mode === 'challenges') {
+		return <Challenges onExit={() => setMode('simulation')} />;
+	}
+
 	return (
 		<section id="simulation" className="py-12 px-4 md:px-8 max-w-7xl mx-auto">
 			<div className="mb-12 text-center relative">
@@ -135,14 +200,55 @@ const SimulationPanel = () => {
 				</p>
 
 				<div className="relative inline-block text-left" ref={dropdownRef}>
-					<button
-						onClick={() => setShowPresets(!showPresets)}
-						className="group flex items-center gap-2 px-5 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
-					>
-						<Settings size={16} className="text-gray-500 group-hover:text-white transition-colors" />
-						<span>Cargar Escenario</span>
-						<ChevronDown size={14} className={`text-gray-500 transition-transform duration-200 ${showPresets ? 'rotate-180' : ''}`} />
-					</button>
+					<div className="flex gap-3 justify-center">
+						<button
+							onClick={() => setShowPresets(!showPresets)}
+							className="group flex items-center gap-2 px-5 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
+						>
+							<Settings size={16} className="text-gray-500 group-hover:text-white transition-colors" />
+							<span>Cargar Escenario</span>
+							<ChevronDown size={14} className={`text-gray-500 transition-transform duration-200 ${showPresets ? 'rotate-180' : ''}`} />
+						</button>
+
+						<div className="relative">
+							<button
+								onClick={handleShare}
+								className="group flex items-center gap-2 px-5 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
+								title="Compartir configuración actual"
+							>
+								<Share2 size={16} className="text-gray-500 group-hover:text-blue-400 transition-colors" />
+								<span>Compartir</span>
+							</button>
+							<AnimatePresence>
+								{showShareTooltip && (
+									<motion.div
+										initial={{ opacity: 0, y: 10 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: 10 }}
+										className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-green-600 text-white text-xs rounded-md whitespace-nowrap z-50"
+									>
+										¡Enlace copiado!
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+
+						<button
+							onClick={() => setMode('challenges')}
+							className="group flex items-center gap-2 px-5 py-2.5 bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 hover:border-yellow-500/50 rounded-full text-sm font-medium text-yellow-500 transition-all duration-200 shadow-sm"
+						>
+							<Trophy size={16} />
+							<span>Modo Desafío</span>
+						</button>
+
+						<button
+							onClick={() => setShowGlossary(true)}
+							className="group flex items-center gap-2 px-3 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
+							title="Glosario de términos"
+						>
+							<BookOpen size={16} className="text-gray-500 group-hover:text-white transition-colors" />
+						</button>
+					</div>
 
 					<AnimatePresence>
 						{showPresets && (
@@ -200,8 +306,14 @@ const SimulationPanel = () => {
 
 					<div className="space-y-5">
 						<div>
-							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2">
 								Origen (Origin)
+								<div className="group relative cursor-help">
+									<Info size={12} className="text-gray-600 hover:text-gray-400" />
+									<div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-[#222] border border-[#333] rounded text-[10px] text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 normal-case font-normal leading-relaxed">
+										El dominio desde donde sale la petición (ej: tu frontend en React).
+									</div>
+								</div>
 							</label>
 							<input
 								type="text"
@@ -305,7 +417,13 @@ const SimulationPanel = () => {
 
 					<div className="space-y-5 text-right">
 						<div>
-							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2">
+							<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2 justify-end">
+								<div className="group relative cursor-help text-left">
+									<Info size={12} className="text-gray-600 hover:text-gray-400" />
+									<div className="absolute bottom-full right-0 mb-2 w-48 p-2 bg-[#222] border border-[#333] rounded text-[10px] text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 normal-case font-normal leading-relaxed">
+										Lista de dominios en los que confía este servidor. Si el origen del cliente no está aquí, el navegador bloqueará la respuesta.
+									</div>
+								</div>
 								Access-Control-Allow-Origin
 							</label>
 							<input
@@ -367,11 +485,52 @@ const SimulationPanel = () => {
 								></div>
 							</button>
 						</div>
+
+						<div className="pt-4 border-t border-[#222] mt-4">
+							<div className="grid grid-cols-2 gap-4">
+								<div>
+									<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2 justify-end">
+										<div className="group relative cursor-help text-left">
+											<Info size={12} className="text-gray-600 hover:text-gray-400" />
+											<div className="absolute bottom-full right-0 mb-2 w-48 p-2 bg-[#222] border border-[#333] rounded text-[10px] text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 normal-case font-normal leading-relaxed">
+												Tiempo en segundos que el navegador puede cachear la respuesta Preflight. Evita hacer peticiones OPTIONS repetidas.
+											</div>
+										</div>
+										Max-Age (Cache)
+									</label>
+									<input
+										type="number"
+										value={serverConfig.maxAge || 0}
+										onChange={(e) => setServerConfig(p => ({...p, maxAge: parseInt(e.target.value) || 0}))}
+										className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all"
+										placeholder="0"
+									/>
+								</div>
+								<div>
+									<label className="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 flex items-center gap-2 justify-end">
+										<div className="group relative cursor-help text-left">
+											<Info size={12} className="text-gray-600 hover:text-gray-400" />
+											<div className="absolute bottom-full right-0 mb-2 w-48 p-2 bg-[#222] border border-[#333] rounded text-[10px] text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 normal-case font-normal leading-relaxed">
+												Cabeceras que el navegador puede leer en la respuesta (ej: Content-Length, Authorization).
+											</div>
+										</div>
+										Expose-Headers
+									</label>
+									<input
+										type="text"
+										value={serverConfig.exposedHeaders ? serverConfig.exposedHeaders.join(', ') : ''}
+										onChange={handleServerExposedHeadersChange}
+										className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all"
+										placeholder="Content-Length"
+									/>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<div className="flex justify-center mb-12">
+			<div className="flex justify-center mb-12 gap-4">
 				<motion.button
 					whileHover={{ scale: 1.02 }}
 					whileTap={{ scale: 0.98 }}
@@ -381,11 +540,42 @@ const SimulationPanel = () => {
 					<Play size={20} className="fill-black" />
 					<span>Ejecutar Simulación</span>
 				</motion.button>
+
+				<div className="relative">
+					<motion.button
+						whileHover={{ scale: 1.02 }}
+						whileTap={{ scale: 0.98 }}
+						onClick={handleCopyCurl}
+						className="group relative inline-flex items-center gap-3 px-6 py-4 bg-[#111] text-gray-300 border border-[#333] rounded-full font-semibold text-lg hover:bg-[#222] hover:text-white transition-all duration-300"
+						title="Copiar comando cURL"
+					>
+						<Terminal size={20} />
+						<span>cURL</span>
+					</motion.button>
+					<AnimatePresence>
+						{showCurlTooltip && (
+							<motion.div
+								initial={{ opacity: 0, y: 10 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: 10 }}
+								className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-3 py-1 bg-blue-600 text-white text-xs rounded-md whitespace-nowrap z-50"
+							>
+								¡Copiado!
+							</motion.div>
+						)}
+					</AnimatePresence>
+				</div>
 			</div>
 
 			<RequestVisualizer result={result} isSimulating={isSimulating} />
 
 			<ResponseViewer result={result} />
+			
+			<SecurityAudit serverConfig={serverConfig} />
+
+			<CodeGenerator serverConfig={serverConfig} />
+
+			<Glossary isOpen={showGlossary} onClose={() => setShowGlossary(false)} />
 		</section>
 	);
 };

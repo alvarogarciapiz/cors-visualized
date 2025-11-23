@@ -10,7 +10,8 @@ export const useCorsSimulation = (clientConfig, serverConfig) => {
       allowedMethods, 
       allowedHeaders, 
       allowCredentials,
-      exposedHeaders 
+      exposedHeaders,
+      maxAge
     } = serverConfig;
 
     let status = 200;
@@ -40,46 +41,74 @@ export const useCorsSimulation = (clientConfig, serverConfig) => {
 
     // 2. Check Method (Preflight simulation)
     // Simple requests: GET, HEAD, POST (with specific content-types)
-    // We will assume a preflight is needed for non-simple methods or custom headers for educational purposes
-    const isSimpleMethod = ['GET', 'HEAD', 'POST'].includes(method);
+    const simpleMethods = ['GET', 'HEAD', 'POST'];
+    const simpleContentTypes = [
+      'application/x-www-form-urlencoded',
+      'multipart/form-data',
+      'text/plain'
+    ];
+
+    // Parse headers to find Content-Type
+    const requestHeaderKeys = headers.split('\n').map(h => h.split(':')[0].trim()).filter(h => h);
+    const contentTypeHeader = headers.split('\n').find(h => h.toLowerCase().startsWith('content-type:'));
+    const contentTypeValue = contentTypeHeader ? contentTypeHeader.split(':')[1].trim().split(';')[0] : null;
+
+    let isSimpleRequest = simpleMethods.includes(method);
+    
+    // If POST, check Content-Type
+    if (method === 'POST' && contentTypeValue) {
+      if (!simpleContentTypes.includes(contentTypeValue.toLowerCase())) {
+        isSimpleRequest = false;
+      }
+    }
+    
+    // If custom headers are present (other than simple headers), it's not simple
+    // Simple headers: Accept, Accept-Language, Content-Language, Content-Type (with restrictions)
+    const simpleHeaders = ['accept', 'accept-language', 'content-language', 'content-type'];
+    const hasCustomHeaders = requestHeaderKeys.some(h => !simpleHeaders.includes(h.toLowerCase()));
+    
+    if (hasCustomHeaders) {
+      isSimpleRequest = false;
+    }
+
     const isMethodAllowed = allowedMethods.includes(method);
 
     if (!isMethodAllowed) {
        // If it's a preflight check failure
-       if (!isSimpleMethod) {
-         status = 204; // Preflight might return 204 but fail the check effectively blocking the main request
-         // But in browser console it shows as CORS error
+       if (!isSimpleRequest) {
          status = 0;
-         error = `Error de CORS: El método '${method}' no está permitido por Access-Control-Allow-Methods.`;
-         logs.push({ type: 'error', message: `El método '${method}' no está en los métodos permitidos: ${allowedMethods.join(', ')}` });
+         error = `Error de CORS: El método '${method}' no está permitido por Access-Control-Allow-Methods en la respuesta Preflight.`;
+         logs.push({ type: 'error', message: `Preflight fallido: El método '${method}' no está en los métodos permitidos: ${allowedMethods.join(', ')}` });
        } else {
-         // Simple methods might still fail on server side logic, but CORS-wise, 
-         // if the server doesn't send the header, browser blocks it? 
-         // Actually for simple requests, the request goes through, but browser hides response if A-C-A-O is missing.
-         // Since we handled A-C-A-O above, we just check if method is supported by server.
-         // But for the sake of CORS simulation, let's assume we are checking against A-C-A-Methods for preflight logic mainly.
+         // Simple requests don't preflight, but if method is not allowed by server logic (not CORS), it fails differently.
+         // But strictly CORS-wise, if the method is not in A-C-A-Methods, it might still work if it's a simple method AND the server accepts it.
+         // However, usually A-C-A-Methods is relevant for Preflight.
+         // For simple requests, the browser checks A-C-A-Origin.
        }
     } else {
-      if (!isSimpleMethod) {
-         logs.push({ type: 'success', message: `El método '${method}' está permitido (Preflight aprobado).` });
+      if (!isSimpleRequest) {
+         logs.push({ type: 'success', message: `Preflight Exitoso: El método '${method}' está permitido.` });
          responseHeaders['Access-Control-Allow-Methods'] = allowedMethods.join(', ');
+         if (maxAge) {
+            responseHeaders['Access-Control-Max-Age'] = maxAge;
+            logs.push({ type: 'info', message: `Preflight Cache: Validez de ${maxAge} segundos.` });
+         }
       }
     }
 
     // 3. Check Headers
-    // Split headers string into array
-    const requestHeaderKeys = headers.split('\n').map(h => h.split(':')[0].trim()).filter(h => h);
     const allowedHeadersList = allowedHeaders.map(h => h.toLowerCase());
-    
     const invalidHeaders = requestHeaderKeys.filter(h => !allowedHeadersList.includes(h.toLowerCase()));
 
-    if (invalidHeaders.length > 0) {
+    if (!isSimpleRequest && invalidHeaders.length > 0) {
       status = 0;
-      error = `Error de CORS: La(s) cabecera(s) de solicitud '${invalidHeaders.join(', ')}' no están permitidas por Access-Control-Allow-Headers.`;
-      logs.push({ type: 'error', message: `Cabeceras no permitidas: ${invalidHeaders.join(', ')}` });
+      error = `Error de CORS: La(s) cabecera(s) de solicitud '${invalidHeaders.join(', ')}' no están permitidas por Access-Control-Allow-Headers en la respuesta Preflight.`;
+      logs.push({ type: 'error', message: `Preflight fallido: Cabeceras no permitidas: ${invalidHeaders.join(', ')}` });
     } else if (requestHeaderKeys.length > 0) {
-      logs.push({ type: 'success', message: `Todas las cabeceras de la solicitud están permitidas.` });
-      responseHeaders['Access-Control-Allow-Headers'] = allowedHeaders.join(', ');
+      if (!isSimpleRequest) {
+          logs.push({ type: 'success', message: `Preflight Exitoso: Todas las cabeceras están permitidas.` });
+          responseHeaders['Access-Control-Allow-Headers'] = allowedHeaders.join(', ');
+      }
     }
 
     // 4. Credentials
@@ -92,6 +121,11 @@ export const useCorsSimulation = (clientConfig, serverConfig) => {
         status = 0;
         error = "Error de CORS: Las credenciales no son soportadas si la cabecera CORS 'Access-Control-Allow-Origin' es '*'";
       }
+    }
+
+    // 5. Expose Headers
+    if (exposedHeaders && exposedHeaders.length > 0) {
+        responseHeaders['Access-Control-Expose-Headers'] = exposedHeaders.join(', ');
     }
 
     setResult({
