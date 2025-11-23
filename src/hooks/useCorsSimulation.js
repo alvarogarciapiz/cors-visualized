@@ -99,7 +99,8 @@ export const useCorsSimulation = (clientConfig, serverConfig) => {
       statusText: status === 0 ? 'Network Error' : statusText,
       headers: responseHeaders,
       logs,
-      error
+      error,
+      method // Pass method for visualization
     });
   };
 
