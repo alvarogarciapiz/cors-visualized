@@ -1,5 +1,35 @@
 # Contributing to CORS Visualized
 
+Thank you for your interest in contributing to CORS Visualized!
+
+This project is an educational tool, and any improvement in visualization, explanations, or new use cases is welcome.
+
+## How to Contribute
+
+1.  **Report Bugs:** If you find a bug, please open an issue describing the problem and how to reproduce it.
+2.  **Suggest Improvements:** If you have ideas for new features or documentation improvements, open an issue with the "enhancement" label.
+3.  **Pull Requests:**
+    *   Fork the repository.
+    *   Create a branch for your feature (`git checkout -b feature/AmazingFeature`).
+    *   Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+    *   Push to the branch (`git push origin feature/AmazingFeature`).
+    *   Open a Pull Request.
+
+## Code Standards
+
+*   We use **React** with **Vite**.
+*   Styles with **Tailwind CSS**.
+*   Please keep the code clean and commented where necessary.
+*   Ensure the project builds correctly before sending the PR (`npm run build`).
+
+## Language
+
+The project supports both English and Spanish. Please try to maintain this bilingual approach if possible, or at least provide clear English documentation.
+
+---
+
+# Contribuir a CORS Visualized
+
 ¡Gracias por tu interés en contribuir a CORS Visualized!
 
 Este proyecto es una herramienta educativa y cualquier mejora en la visualización, explicaciones o nuevos casos de uso es bienvenida.
@@ -24,4 +54,4 @@ Este proyecto es una herramienta educativa y cualquier mejora en la visualizaci�
 
 ## Idioma
 
-El idioma principal del proyecto es **Español**. Por favor, mantén la documentación y los comentarios en este idioma si es posible, aunque el inglés también es aceptado.
+El proyecto soporta tanto Inglés como Español. Por favor intenta mantener este enfoque bilingüe si es posible.
