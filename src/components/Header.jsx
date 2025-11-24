@@ -12,11 +12,11 @@ const Header = () => {
       <div className="flex items-center gap-3">
         <img 
           src="/apple-touch-icon.png" 
-          alt="CORS Visualizer Logo" 
+          alt="CORS Visualized Logo" 
           className="w-10 h-10 rounded-xl shadow-lg shadow-white/5 hover:scale-105 transition-transform duration-300" 
         />
         <h1 className="text-xl font-bold tracking-tight text-white">
-          CORS <span className="text-gray-500">Visualizer</span>
+          CORS <span className="text-gray-500">Visualized</span>
         </h1>
       </div>
       

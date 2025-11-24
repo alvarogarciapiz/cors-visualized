@@ -199,8 +199,8 @@ const SimulationPanel = () => {
 					Diseña escenarios de comunicación entre cliente y servidor.
 				</p>
 
-				<div className="relative inline-block text-left" ref={dropdownRef}>
-					<div className="flex gap-3 justify-center">
+				<div className="relative inline-block text-left mobile-actions-container" ref={dropdownRef}>
+					<div className="flex gap-3 justify-center mobile-actions-wrapper">
 						<button
 							onClick={() => setShowPresets(!showPresets)}
 							className="group flex items-center gap-2 px-5 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"

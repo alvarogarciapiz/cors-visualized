@@ -297,7 +297,7 @@ app.UseCors("MyCorsPolicy");`;
           </button>
         </div>
         
-        <pre className="p-6 pt-12 md:pt-6 overflow-x-auto custom-scrollbar bg-[#050505] text-sm font-mono leading-relaxed">
+        <pre className="p-6 pt-12 md:pt-6 overflow-x-auto custom-scrollbar bg-[#050505] text-sm font-mono leading-relaxed text-left">
           <code className="language-javascript text-gray-300">
             {generateCode(activeTab)}
           </code>

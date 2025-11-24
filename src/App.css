@@ -40,3 +40,138 @@
 .read-the-docs {
   color: #888;
 }
+
+/* --- MOBILE FRIENDLY ADJUSTMENTS --- */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  #root {
+    padding: 10px !important;
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  /* Adjust main container spacing */
+  section#simulation, 
+  .max-w-6xl, 
+  .max-w-7xl {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Typography adjustments */
+  h1 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+  }
+
+  h3 {
+    font-size: 1.1rem !important;
+  }
+
+  p {
+    font-size: 0.9rem !important;
+  }
+
+  /* Form elements - Prevent iOS zoom and improve touch targets */
+  input, select, textarea {
+    font-size: 16px !important;
+    min-height: 44px;
+  }
+
+  /* Layout adjustments */
+  .grid {
+    gap: 1rem !important;
+  }
+
+  /* Header adjustments */
+  header {
+    padding: 0.75rem !important;
+  }
+  
+  header h1 {
+    font-size: 1.1rem !important;
+  }
+
+  /* Hide desktop-only navigation */
+  header nav {
+    display: none;
+  }
+
+  /* --- FIX BUTTONS OVERFLOW --- */
+  /* Target the specific button container in SimulationPanel */
+  .mobile-actions-container {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .mobile-actions-wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  /* Make buttons in that container stack nicely */
+  .mobile-actions-wrapper > button,
+  .mobile-actions-wrapper > div {
+    width: 100% !important;
+    margin: 0 !important;
+    flex: none !important;
+    min-width: 0 !important; /* Allow shrinking if needed */
+  }
+
+  /* Allow text to wrap inside buttons if needed */
+  .mobile-actions-wrapper button span {
+    white-space: normal !important;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* Ensure buttons inside the div (Share button wrapper) also behave */
+  .mobile-actions-wrapper > div button {
+    width: 100% !important;
+    justify-content: center;
+  }
+
+  /* General button sizing for mobile */
+  button {
+    padding: 0.75rem 0.5rem !important; /* Reduce horizontal padding slightly */
+    justify-content: center;
+  }
+
+  /* Fix for the preset dropdown */
+  .absolute.right-0.mt-3.w-80 {
+    width: 90vw !important;
+    right: auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    position: fixed !important;
+    top: 20% !important;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 9999 !important;
+  }
+
+  /* Code blocks */
+  pre {
+    font-size: 0.75rem !important;
+    padding: 0.75rem !important;
+    overflow-x: auto !important;
+  }
+}
