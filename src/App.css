@@ -2,7 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  /* text-align: center; Removed to fix alignment issues */
 }
 
 .logo {
@@ -64,10 +64,10 @@
   section#simulation, 
   .max-w-6xl, 
   .max-w-7xl {
-    padding-top: 1.5rem !important;
-    padding-bottom: 1.5rem !important;
-    padding-left: 0.5rem !important;
-    padding-right: 0.5rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 
   /* Typography adjustments */
@@ -150,9 +150,19 @@
   }
 
   /* General button sizing for mobile */
-  button {
+  button:not([role="switch"]) {
     padding: 0.75rem 0.5rem !important; /* Reduce horizontal padding slightly */
     justify-content: center;
+  }
+
+  /* Fix for toggles on mobile */
+  button[role="switch"] {
+    padding: 0 !important;
+    width: 2.5rem !important; /* w-10 */
+    height: 1.25rem !important; /* h-5 */
+    min-width: 2.5rem !important;
+    flex: none !important;
+    margin-left: 1rem !important;
   }
 
   /* Fix for the preset dropdown */
@@ -173,5 +183,18 @@
     font-size: 0.75rem !important;
     padding: 0.75rem !important;
     overflow-x: auto !important;
+  }
+
+  /* --- FIX TEXT ALIGNMENT IN CARDS --- */
+  /* Force left alignment for Security Audit, Config Panels, Educational Cards, and Glossary */
+  #simulation .rounded-xl,
+  #learn .glass-panel,
+  .glossary-modal {
+    text-align: left !important;
+  }
+  
+  /* Ensure icons/titles in Security Audit align correctly with the text */
+  #simulation .rounded-xl .flex {
+    justify-content: flex-start !important;
   }
 }

@@ -97,7 +97,7 @@ const SecurityAudit = ({ serverConfig }) => {
   }
 
   return (
-    <div className="mt-8 space-y-4">
+    <div className="mt-8 space-y-4 text-left">
       <h3 className="text-sm font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">
         <ShieldAlert size={16} /> Auditoría de Seguridad
       </h3>
@@ -136,9 +136,9 @@ const SecurityAudit = ({ serverConfig }) => {
               <p className="text-sm text-gray-300 mb-3 leading-relaxed">
                 {issue.desc}
               </p>
-              <div className="text-xs font-mono bg-black/30 px-3 py-2 rounded border border-white/5 text-gray-400">
-                <span className="text-gray-500 font-bold mr-2">RECOMENDACIÓN:</span>
-                {issue.recommendation}
+              <div className="mt-3 pt-3 border-t border-white/5">
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider block mb-1">Recomendación</span>
+                <p className="text-xs font-mono text-gray-300">{issue.recommendation}</p>
               </div>
             </div>
           </motion.div>

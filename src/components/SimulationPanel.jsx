@@ -203,7 +203,7 @@ const SimulationPanel = () => {
 					<div className="flex gap-3 justify-center mobile-actions-wrapper">
 						<button
 							onClick={() => setShowPresets(!showPresets)}
-							className="group flex items-center gap-2 px-5 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
+							className="group flex items-center gap-2 px-5 py-2.5 bg-[#0a0a0a] hover:bg-[#111] border border-[#333] hover:border-[#666] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
 						>
 							<Settings size={16} className="text-gray-500 group-hover:text-white transition-colors" />
 							<span>Cargar Escenario</span>
@@ -213,7 +213,7 @@ const SimulationPanel = () => {
 						<div className="relative">
 							<button
 								onClick={handleShare}
-								className="group flex items-center gap-2 px-5 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
+								className="group flex items-center gap-2 px-5 py-2.5 bg-[#0a0a0a] hover:bg-[#111] border border-[#333] hover:border-[#666] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
 								title="Compartir configuración actual"
 							>
 								<Share2 size={16} className="text-gray-500 group-hover:text-blue-400 transition-colors" />
@@ -235,7 +235,7 @@ const SimulationPanel = () => {
 
 						<button
 							onClick={() => setMode('challenges')}
-							className="group flex items-center gap-2 px-5 py-2.5 bg-yellow-500/10 hover:bg-yellow-500/20 border border-yellow-500/30 hover:border-yellow-500/50 rounded-full text-sm font-medium text-yellow-500 transition-all duration-200 shadow-sm"
+							className="group flex items-center gap-2 px-5 py-2.5 bg-yellow-500/5 hover:bg-yellow-500/10 border border-yellow-500/20 hover:border-yellow-500/40 rounded-full text-sm font-medium text-yellow-500 transition-all duration-200 shadow-sm"
 						>
 							<Trophy size={16} />
 							<span>Modo Desafío</span>
@@ -243,7 +243,7 @@ const SimulationPanel = () => {
 
 						<button
 							onClick={() => setShowGlossary(true)}
-							className="group flex items-center gap-2 px-3 py-2.5 bg-[#111] hover:bg-[#222] border border-[#333] hover:border-[#555] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
+							className="group flex items-center gap-2 px-3 py-2.5 bg-[#0a0a0a] hover:bg-[#111] border border-[#333] hover:border-[#666] rounded-full text-sm font-medium text-gray-300 transition-all duration-200 shadow-sm"
 							title="Glosario de términos"
 						>
 							<BookOpen size={16} className="text-gray-500 group-hover:text-white transition-colors" />
@@ -321,7 +321,7 @@ const SimulationPanel = () => {
 								onChange={(e) =>
 									setClientConfig({ ...clientConfig, origin: e.target.value })
 								}
-								className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-gray-700"
+								className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all placeholder-gray-700 shadow-inner"
 								placeholder="https://..."
 							/>
 						</div>
@@ -337,7 +337,7 @@ const SimulationPanel = () => {
 										onChange={(e) =>
 											setClientConfig({ ...clientConfig, method: e.target.value })
 										}
-										className="w-full appearance-none bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+										className="w-full appearance-none bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner"
 									>
 										{['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD'].map((m) => (
 											<option key={m} value={m}>
@@ -370,7 +370,7 @@ const SimulationPanel = () => {
 								onChange={(e) =>
 									setClientConfig({ ...clientConfig, headers: e.target.value })
 								}
-								className="w-full h-24 bg-[#111] border border-[#333] rounded-lg px-3 py-2 font-mono text-xs text-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none placeholder-gray-700"
+								className="w-full h-24 bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 font-mono text-xs text-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none placeholder-gray-700 shadow-inner"
 								placeholder="Authorization: Bearer..."
 							/>
 						</div>
@@ -430,7 +430,7 @@ const SimulationPanel = () => {
 								type="text"
 								value={serverConfig.allowedOrigins.join(', ')}
 								onChange={handleServerOriginChange}
-								className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-700"
+								className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-700 shadow-inner"
 							/>
 							<p className="text-[10px] text-gray-600 mt-1.5">
 								Usa <code className="bg-[#222] px-1 rounded text-gray-400">*</code> para permitir todos
@@ -445,7 +445,7 @@ const SimulationPanel = () => {
 								type="text"
 								value={serverConfig.allowedMethods.join(', ')}
 								onChange={handleServerMethodsChange}
-								className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all"
+								className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all shadow-inner"
 							/>
 						</div>
 
@@ -457,7 +457,7 @@ const SimulationPanel = () => {
 								type="text"
 								value={serverConfig.allowedHeaders.join(', ')}
 								onChange={handleServerHeadersChange}
-								className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all"
+								className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all shadow-inner"
 							/>
 						</div>
 
@@ -502,7 +502,7 @@ const SimulationPanel = () => {
 										type="number"
 										value={serverConfig.maxAge || 0}
 										onChange={(e) => setServerConfig(p => ({...p, maxAge: parseInt(e.target.value) || 0}))}
-										className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all"
+										className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all shadow-inner"
 										placeholder="0"
 									/>
 								</div>
@@ -520,7 +520,7 @@ const SimulationPanel = () => {
 										type="text"
 										value={serverConfig.exposedHeaders ? serverConfig.exposedHeaders.join(', ') : ''}
 										onChange={handleServerExposedHeadersChange}
-										className="w-full bg-[#111] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all"
+										className="w-full bg-[#0a0a0a] border border-[#333] rounded-lg px-3 py-2 text-sm text-gray-200 text-right focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all shadow-inner"
 										placeholder="Content-Length"
 									/>
 								</div>
@@ -532,21 +532,22 @@ const SimulationPanel = () => {
 
 			<div className="flex justify-center mb-12 gap-4">
 				<motion.button
-					whileHover={{ scale: 1.02 }}
+					whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(255,255,255,0.3)" }}
 					whileTap={{ scale: 0.98 }}
 					onClick={handleSimulate}
-					className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-semibold text-lg shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all duration-300"
+					className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-bold text-lg shadow-[0_0_20px_rgba(255,255,255,0.15)] transition-all duration-300 overflow-hidden"
 				>
-					<Play size={20} className="fill-black" />
-					<span>Ejecutar Simulación</span>
+					<div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-200/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+					<Play size={20} className="fill-black relative z-10" />
+					<span className="relative z-10">Ejecutar Simulación</span>
 				</motion.button>
 
 				<div className="relative">
 					<motion.button
-						whileHover={{ scale: 1.02 }}
+						whileHover={{ scale: 1.02, borderColor: "#666" }}
 						whileTap={{ scale: 0.98 }}
 						onClick={handleCopyCurl}
-						className="group relative inline-flex items-center gap-3 px-6 py-4 bg-[#111] text-gray-300 border border-[#333] rounded-full font-semibold text-lg hover:bg-[#222] hover:text-white transition-all duration-300"
+						className="group relative inline-flex items-center gap-3 px-6 py-4 bg-[#0a0a0a] text-gray-300 border border-[#333] rounded-full font-semibold text-lg hover:text-white transition-all duration-300"
 						title="Copiar comando cURL"
 					>
 						<Terminal size={20} />

@@ -45,7 +45,7 @@ const Glossary = ({ isOpen, onClose }) => {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed inset-0 m-auto w-full max-w-2xl h-fit max-h-[80vh] bg-[#0a0a0a] border border-[#333] rounded-2xl shadow-2xl z-[70] overflow-hidden flex flex-col"
+            className="glossary-modal fixed inset-0 m-auto w-full max-w-2xl h-fit max-h-[80vh] bg-[#0a0a0a] border border-[#333] rounded-2xl shadow-2xl z-[70] overflow-hidden flex flex-col"
           >
             <div className="flex items-center justify-between p-6 border-b border-[#222]">
               <div className="flex items-center gap-3">

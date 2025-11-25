@@ -45,9 +45,9 @@ const EducationalSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="glass-panel p-8 hover:border-gray-500 transition-colors group"
+            className="glass-panel p-8 hover:border-gray-500 transition-all duration-300 group hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]"
           >
-            <div className="mb-6 p-4 bg-white/5 rounded-xl w-fit group-hover:scale-110 transition-transform duration-300 text-white">
+            <div className="mb-6 p-4 bg-white/5 rounded-xl w-fit group-hover:scale-110 group-hover:bg-white/10 transition-all duration-300 text-white shadow-inner">
               {card.icon}
             </div>
             <h3 className="text-xl font-bold mb-4 text-white">{card.title}</h3>
