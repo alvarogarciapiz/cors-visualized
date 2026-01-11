@@ -91,7 +91,7 @@ Este proyecto está licenciado bajo la Licencia MIT. Consulta el fichero [LICENS
 ## 🔗 Créditos y Recursos
 
 *   Creado por **[@lvrpiz](https://github.com/alvarogarciapiz)**.
-*   Basado en un artículo de **[The Bulletin Newsletter](https://www.blog.lvrpiz.com)**.
+*   Basado en un artículo de **[The lvrpiz Newsletter](https://www.blog.lvrpiz.com)**.
 *   Echa un vistazo a mi web: [lvrpiz.com](https://lvrpiz.com).
 
 ---
