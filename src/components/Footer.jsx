@@ -8,7 +8,7 @@ const Footer = () => {
         Made by <a href="https://lvrpiz.com" target="_blank" rel="noopener noreferrer" className="text-white hover:underline font-medium">@lvrpiz</a>
       </p>
       <p className="mt-4 text-xs text-gray-700">
-        Basado en un artículo de <a href="https://www.bulletin.lvrpiz.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-400 transition-colors">The lvrpiz Newsletter</a>
+        Basado en un artículo de <a href="https://www.blog.lvrpiz.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-400 transition-colors">The lvrpiz Newsletter</a>
       </p>
     </footer>
   );
